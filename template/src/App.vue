@@ -1,22 +1,71 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+    <div id="app" v-loading.fullscreen.lock="$store.getters.getLoding"></div>
+    <!-- ID: app id  -->
+    <x-tree :tabList="tabList" v-on:handerTab="handerTab" :index="index" id="id"></x-tree>
+    <!--ID: app id -->
+    <router-view class="flex-right" :title="title" @popup="popup" />
+    <div class="mark" v-show="markStatus"></div>
+    </div>
 </template>
-
 <script>
-export default {};
-</script>
+export default {
+    data() {
+        return {
+            tabList: [],
+            title: "",
+            index: 0,
+            markStatus: false,
+        };
+    },
+    methods: {
+        handerTab({ index, item }) {
+            this.title = item.name;
+            this.index = index;
+            sessionStorage.setItem("index", index);
+            this.$router.push(item.path);
+        },
+        popup(e) {
+            this.markStatus = e;
+        },
+        async loadingLang() { // app Languages
 
-<style lang="less">
+        },
+        loadingMenu() { // app sidebar
+
+
+        },
+    },
+    mounted() {
+        this.loadingLang();
+        this.loadingMenu();
+    },
+};
+</script>
+<style lang="scss">
 #app {
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-#app::-webkit-scrollbar {
-  display: none;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    .flex-right {
+        flex: 1;
+        display: flex;
+        padding-left: 24px;
+        margin-top: 48px;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .mark {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: 99;
+    }
 }
 </style>
