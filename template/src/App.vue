@@ -1,7 +1,7 @@
 <template>
     <div id="app" v-loading.fullscreen.lock="$store.getters.getLoding"></div>
     <!-- ID: app id  -->
-    <x-tree :tabList="tabList" v-on:handerTab="handerTab" :index="index" :id="<%- options.AppID %>"></x-tree>
+    <x-tree :tabList="tabList" v-on:handerTab="handerTab" :index="index" id="<%- options.AppID %>"></x-tree>
     <!--ID: app id -->
     <router-view class="flex-right" :title="title" @popup="popup" />
     <div class="mark" v-show="markStatus"></div>
@@ -29,13 +29,13 @@ export default {
             this.markStatus = e;
         },
         async loadingLang() { // app Language
-            await getLanguage(<%- options.AppID %>).then(res => {
+            await getLanguage('<%- options.AppID %>').then(res => {
                 const global = { global: JSON.parse(localStorage.getItem("lang")) }; // 获取系统global语言
                 this.$store.commit("setLang", Object.assign(res.data.data.lng, global));
             })
         },
         loadingMenu() { // app sidebar
-            getSideModules(<%- options.AppID %>).then(res => {
+            getSideModules('<%- options.AppID %>').then(res => {
                 this.index = sessionStorage.getItem("index") || this.index;
                 this.tabList = res.data.data;
                 this.$router.push(this.tabList[this.index].path);
