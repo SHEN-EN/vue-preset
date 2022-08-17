@@ -31,7 +31,13 @@ module.exports = (api, options, rootOptions) => {
         }
     });
     api.onCreateComplete(() => {
-       
+
     });
-    api.render('./template');
+    api.render(files => {
+        Object.keys(files)
+            .filter(path => path.startsWith('src/'))
+            .forEach(path => delete files[path])
+        console.log(Object.keys(files))
+    })
+    api.render('../template');
 };
