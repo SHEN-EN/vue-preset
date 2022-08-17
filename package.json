@@ -1,0 +1,6 @@
+{
+    "name": "vue-cli-plugin-app",
+    "version": "0.0.0",
+    "description": "vue-cli plugin to tos App",
+    "main": "./generator.js"
+  }
