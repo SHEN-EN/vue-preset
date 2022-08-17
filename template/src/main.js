@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import store from '@/store/index'
+import store from './store/index'
 import router from './router'
 import VueCookies from 'vue-cookies'
 import './font/iconfont.css' //全局引入icon font
