@@ -4,6 +4,7 @@ module.exports = (api, options, rootOptions) => {
         scripts: {
             "serve": "vue-cli-service serve",
             "build": "vue-cli-service build",
+            "install:tos": "npm install @tosvue/tos-components",
         },
 
         dependencies: {

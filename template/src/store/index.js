@@ -5,12 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
 	state: {
-		languages: {},
+		language: {},
 		loading: false
 	},
 	mutations: {
-		setDockerLang(state, lang) {
-			state.languages = lang;
+		setLang(state, lang) {
+			state.language = lang;
 		},
 		setLoading(state, val) {
 			state.loading = val
@@ -18,7 +18,7 @@ export default new Vuex.Store({
 	},
 	getters: {
 		getLang: state => {
-			return state.languages
+			return state.language
 		},
 		getLoding(state) {
 			return state.loading

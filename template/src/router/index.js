@@ -1,23 +1,32 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Layout from '@/views/Layout';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+//解决编程式路由往同一地址跳转时会报错的情况
+const originalPush = VueRouter.prototype.push;
+const originalReplace = VueRouter.prototype.replace;
+//push
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+    if (onResolve || onReject)
+        return originalPush.call(this, location, onResolve, onReject);
+    return originalPush.call(this, location).catch(err => err);
+};
+//replace
+VueRouter.prototype.replace = function push(location, onResolve, onReject) {
+    if (onResolve || onReject)
+        return originalReplace.call(this, location, onResolve, onReject);
+    return originalReplace.call(this, location).catch(err => err);
+};
+Vue.use(VueRouter)
 
-Vue.use(Router);
-
-export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
+const routes = [
     {
-      path: '/',
-      component: Layout,
-      children: [
-        {
-          path: '/index',
-          name: 'Index',
-          component: () => import(/* webpackChunkName: "Home" */'@/views/Home.vue'),
-        },
-      ],
+        path: '/',
+        name: 'home',
+        component: () => import('@/views/Home.vue')
     },
-  ],
-});
+]
+
+const router = new VueRouter({
+    routes
+})
+
+export default router
